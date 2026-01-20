@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubik's Cube Solver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="ui-panel">
+        <div class="group">
+            <button onclick="window.shuffle()">Shuffle (S)</button>
+            <button onclick="window.solve()" style="background: #27ae60;">Solve (Enter)</button>
+        </div>
+        <div class="group">
+            <p>Rotate Faces:</p>
+            <button onclick="window.applyMove('U')">U</button>
+            <button onclick="window.applyMove('D')">D</button>
+            <button onclick="window.applyMove('L')">L</button>
+            <button onclick="window.applyMove('R')">R</button>
+            <button onclick="window.applyMove('F')">F</button>
+            <button onclick="window.applyMove('B')">B</button>
+        </div>
+        <div class="group">
+            <button onclick="window.applyMove('U\'')">U'</button>
+            <button onclick="window.applyMove('D\'')">D'</button>
+            <button onclick="window.applyMove('L\'')">L'</button>
+            <button onclick="window.applyMove('R\'')">R'</button>
+            <button onclick="window.applyMove('F\'')">F'</button>
+            <button onclick="window.applyMove('B\'')">B'</button>
+        </div>
+    </div>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "cubejs": "https://esm.sh/cubejs@1.3.1"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
