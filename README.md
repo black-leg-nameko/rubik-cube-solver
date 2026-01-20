@@ -2,7 +2,7 @@
 
 A browser-based 3D Rubik's Cube simulator and automated solver built with Three.js and the Kociemba algorithm. This project demonstrates 3D manipulation, animation queuing, and the integration of complex combinatorial algorithms in a web environment.
 
-![Project Demo](rubukdemo.gif)
+![Project Demo](rubikdemo.gif)
 
 ## Features
 
