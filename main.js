@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Cube from 'cubejs';
 
-// --- 1. 初期化と設定 ---
 Cube.initSolver();
 let internalCube = new Cube();
 
@@ -16,15 +15,13 @@ camera.position.set(5, 5, 5);
 const controls = new OrbitControls(camera, renderer.domElement);
 scene.add(new THREE.AmbientLight(0xffffff, 0.8));
 
-// アニメーション制御用の変数
 let cubies = [];
 let moveQueue = [];
 let currentMove = null;
-const ROTATION_SPEED = 0.15; // 回転速度（0.1〜0.2がおすすめ）
+const ROTATION_SPEED = 0.15;
 
 const colors = [0x0000ff, 0x00ff00, 0xffffff, 0xffff00, 0xff0000, 0xffa500];
 
-// --- 2. キューブの生成 ---
 function createCube() {
     const geometry = new THREE.BoxGeometry(0.95, 0.95, 0.95);
     for (let x = -1; x <= 1; x++) {
@@ -54,9 +51,6 @@ function createCube() {
 }
 createCube();
 
-// --- 3. 回転ロジック ---
-
-// 命令をキューに登録する関数
 function applyMove(move) {
     if (!move) return;
     internalCube.move(move); 
@@ -66,31 +60,27 @@ function applyMove(move) {
 
     let axis, layer, direction;
 
-    // 1. 各面の回転軸とレイヤーを設定
     switch (face) {
-        case 'U': axis = 'y'; layer = 1;  direction = -1; break; // 上面
-        case 'D': axis = 'y'; layer = -1; direction = 1;  break; // 底面
-        case 'L': axis = 'x'; layer = -1; direction = 1;  break; // 左面
-        case 'R': axis = 'x'; layer = 1;  direction = -1; break; // 右面
-        case 'F': axis = 'z'; layer = 1;  direction = -1; break; // 前面
-        case 'B': axis = 'z'; layer = -1; direction = 1;  break; // 背面
+        case 'U': axis = 'y'; layer = 1;  direction = -1; break;
+        case 'D': axis = 'y'; layer = -1; direction = 1;  break;
+        case 'L': axis = 'x'; layer = -1; direction = 1;  break;
+        case 'R': axis = 'x'; layer = 1;  direction = -1; break;
+        case 'F': axis = 'z'; layer = 1;  direction = -1; break;
+        case 'B': axis = 'z'; layer = -1; direction = 1;  break;
     }
 
-    // 2. 修飾子（' や 2）による回転方向の調整
     if (modifier === "'") {
-        direction *= -1; // 逆回転
+        direction *= -1;
     } else if (modifier === "2") {
-        direction *= 2;  // 180度
+        direction *= 2;
     }
 
     const targetAngle = (Math.PI / 2) * direction;
 
-    // アニメーションキューに追加する際に必要な情報をまとめる
-    // ※ startNextMove での計算を簡略化するため、ここで targetAngle を確定させます
+    // Finalize targetAngle here to simplify math in startNextMove
     moveQueue.push({ axis, layer, targetAngle });
 }
 
-// 次のアニメーションを開始する
 function startNextMove() {
     if (moveQueue.length === 0 || currentMove) return;
 
@@ -112,7 +102,6 @@ function startNextMove() {
     };
 }
 
-// 毎フレームの更新処理
 function updateAnimation() {
     if (!currentMove) {
         startNextMove();
@@ -133,8 +122,6 @@ function updateAnimation() {
     }
 }
 
-// --- 4. 外部公開用関数（HTMLボタン用） ---
-
 window.applyMove = applyMove;
 
 window.shuffle = function() {
@@ -152,8 +139,6 @@ window.solve = function() {
         solution.split(' ').forEach(move => applyMove(move));
     }
 };
-
-// --- 5. ループとイベント ---
 
 window.addEventListener('keydown', (e) => {
     const keyMap = { 's': 'shuffle', 'Enter': 'solve', 'r': 'R', 'u': 'U', 'f': 'F', 'l': 'L', 'd': 'D', 'b': 'B' };
