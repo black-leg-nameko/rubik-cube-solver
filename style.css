@@ -4,12 +4,32 @@ body {
     background-color: #111;
 }
 
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+    background: #444;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 4px;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+button:hover {
+    background: #666;
+}
+
+p {
+    margin: 5px 0;
+    width: 100%;
+    font-size: 14px;
+}
+
 #canvas-container {
     width: 100vw;
     height: 100vh;
 }
 
-/* style.css に追加 */
 #ui-panel {
     position: absolute;
     top: 20px;
@@ -30,25 +50,4 @@ body {
     flex-wrap: wrap;
     gap: 5px;
     align-items: center;
-}
-
-button {
-    padding: 8px 12px;
-    cursor: pointer;
-    background: #444;
-    color: white;
-    border: 1px solid #666;
-    border-radius: 4px;
-    font-weight: bold;
-    min-width: 40px;
-}
-
-button:hover {
-    background: #666;
-}
-
-p {
-    margin: 5px 0;
-    width: 100%;
-    font-size: 14px;
 }
